@@ -3,6 +3,8 @@ This repo contains the Jenkins jobs and vies that are part of the devops docker 
 
 |Folder|Description|
 |:----:|:----|
+|agents|scripts to create Jenkins agents|
+|jobs|This stores the jobs configuration file that was versioned |
 |util|This contains the utility scripts to get from Jenkins server in the devops container |
 |views|This stores the views configuration file that was versioned |
-|jobs|This stores the jobs configuration file that was versioned |
+
