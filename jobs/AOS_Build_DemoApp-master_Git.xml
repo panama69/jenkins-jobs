@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Previously: AOS_Build_DemoApp-master_Git</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>ssh://devops.aos.com/GitRepo/AOS.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>/Web_Workspace</customWorkspace>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean install -P development</targets>
+      <mavenName>mvn</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>false</injectBuildVariables>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>[ ! -d &quot;$WORKSPACE/../../Staging_Area/packed_wars&quot; ] &amp;&amp; mkdir -p $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/accountservice/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/catalog/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/mastercredit/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/order/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/root/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/safepay/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
+cp $WORKSPACE/shipex/target/*.war $WORKSPACE/../../Staging_Area/packed_wars</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

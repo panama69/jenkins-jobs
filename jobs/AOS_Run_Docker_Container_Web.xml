@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>DockerServer</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>if [ ! &quot;$(docker ps -q -f name=aos_postgres)&quot; ]; then
+
+	echo &quot;Starting database&quot;
+	docker run -d -p 5432:5432 --name aos_postgres --hostname aosdb.aos.com --net demo-net hub.docker.hpecorp.net/hpepresales/aos:postgres        
+
+else
+
+	echo &quot;Database is up&quot;
+        
+fi
+
+IP=$(/sbin/ifconfig ens34 | grep &apos;inet addr&apos; | awk {&apos;print $2&apos;} | cut -d&quot;:&quot; -f2)
+
+# Start aos container
+docker run -d -p 8000:8000 -p 8009:8009 --net demo-net --name aos_tomcat --hostname aosweb.aos.com --add-host DockerServer:$IP aos_tomcat</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

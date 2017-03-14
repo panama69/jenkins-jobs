@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>DockerServer</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>/var/jenkins/AOS</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#echo &quot;Get new war files&quot;
+
+HOSTNAME=$(/bin/hostname)
+
+scp -P 9022 root@$HOSTNAME:/Staging_Area/packed_wars/DockerFile-AOS $WORKSPACE
+scp -P 9022 root@$HOSTNAME:/Staging_Area/packed_wars/*.war $WORKSPACE</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command># Check if AOS on Tomcat is running
+# Tear it down if necessary
+
+if [ ! &quot;$(docker ps -a -q -f name=aos_tomcat)&quot; ]; then
+
+	echo &quot;Starting aos_tomcat container&quot;
+
+else
+	echo &quot;AOS is up&quot;
+    echo &quot;Removing Container&quot;
+    
+    docker rm -f aos_tomcat
+
+fi
+
+echo &quot;Build docker image AOS on Tomcat&quot;
+
+cd $WORKSPACE
+
+docker build -t aos_tomcat -f DockerFile-AOS .</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

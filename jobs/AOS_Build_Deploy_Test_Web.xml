@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.9">
+  <actions/>
+  <description>Advantage_Online_Shopping_Backend</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.24">
+    <script>node { 
+    stage &apos;AOS Build Git Web&apos;
+    echo &apos;=== AOS_Build_Git Web ===&apos;
+    echo &apos;=== This build reqires the devops, aos_postgres and  aos_tomcat containers ===&apos;
+    build job: &apos;AOS_Build_DemoApp-master_Git&apos;
+    stage &apos;AOS Deploy Docker Images Web&apos;
+    echo &apos;=== AOS_Deploy_Docker_Images_Web ===&apos;
+    build job: &apos;AOS_Deploy_Docker_Images_Web&apos;
+    stage &apos;AOS Run Docker Container Web&apos;
+    echo &apos;=== AOS_Run_Docker_Container_Web ===&apos;
+    build job: &apos;AOS_Run_Docker_Container_Web&apos;
+    stage &apos;AOS Start Docker Image Web&apos;
+    echo &apos;=== AOS_Start_Docker_Image_Web ===&apos;
+    build job: &apos;AOS_Start_Docker_Image_Web&apos;
+    stage &apos;AOS Run Regressions Test Web&apos;
+    echo &apos;=== AOS Run Regressions Test Web ===&apos;
+    build &apos;AOS_Run_Regression_Test_Web&apos;
+    echo &apos;=== Build Completed ===&apos;
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>/Android_Workspace</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo &quot;=== Copying newly created APK files to /Docker directory and uploading to Mobile Center ===&quot;
+cp -r $WORKSPACE/app/build/outputs/apk /Staging_Area
+echo &quot;=== Uploading app-debug.apk file to Mobile Center ===&quot; </command>
+    </hudson.tasks.Shell>
+    <com.hp.application.automation.tools.run.UploadAppBuilder plugin="hp-application-automation-tools-plugin@5.0">
+      <uploadAppModel>
+        <mcServerName>Mobile Center</mcServerName>
+        <mcUserName>admin@default.com</mcUserName>
+        <mcPassword>{AQAAABAAAAAQEe5dtVc3J5bWM5V5yOoC8eVqrMa7h8KoLOF5mf3w/B0=}</mcPassword>
+        <applicationPaths>
+          <com.hp.application.automation.tools.model.UploadAppPathModel>
+            <mcAppPath>/Staging_Area/apk/app-debug.apk</mcAppPath>
+          </com.hp.application.automation.tools.model.UploadAppPathModel>
+        </applicationPaths>
+      </uploadAppModel>
+    </com.hp.application.automation.tools.run.UploadAppBuilder>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

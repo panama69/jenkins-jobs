@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.9">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.24">
+    <script>node { 
+    stage &apos;AOS Build Android_Git&apos;
+    echo &apos;=== AOS_Build_Android_Git ===&apos;
+    echo &apos;=== This build requires the devops and mc containers ===&apos;
+    build job: &apos;AOS_Build_Android_Git&apos;
+    stage &apos;AOS Upload Android APK to MC&apos;
+    echo &apos;=== AOS_Upload_Android_to_MC ===&apos;
+    build job: &apos;AOS_Upload_Android_APK_to_MC&apos;
+    stage &apos;AOS Run Regression Test Android&apos;
+    echo &apos;=== AOS_Run Regression Test Android ===&apos;
+    build job: &apos;AOS_Run_Regression_Test_Android&apos;
+    echo &apos;=== Build Completed ===&apos;
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>
