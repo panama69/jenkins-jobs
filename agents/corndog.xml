@@ -2,7 +2,7 @@
 <slave>
   <name>corndog</name>
   <description>slave agent using webstart to test on browsers and other UI's</description>
-  <remoteFS>~</remoteFS>
+  <remoteFS>/tmp</remoteFS>
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
