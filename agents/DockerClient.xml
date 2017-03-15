@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<slave>
+  <name>DockerClient</name>
+  <description></description>
+  <remoteFS>C:\Jenkins</remoteFS>
+  <numExecutors>4</numExecutors>
+  <mode>EXCLUSIVE</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.slaves.JNLPLauncher"/>
+  <label></label>
+  <nodeProperties/>
+</slave>
