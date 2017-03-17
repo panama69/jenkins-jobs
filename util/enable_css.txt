@@ -1,0 +1,8 @@
+run this from the Java Script Console for a non-permanent solution
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP","")
+
+or add this to the start up line of Jenkins
+-Dhudson.model.DirectoryBrowserSupport.CSP=
+
+Reference:
+http://stackoverflow.com/questions/35783964/jenkins-html-publisher-plugin-no-css-is-displayed-when-report-is-viewed-in-j
