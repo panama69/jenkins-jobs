@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Previously: AOS_Build_DemoApp-master_Git</description>
+  <description></description>
+  <displayName>AOS_Build_Web_Git</displayName>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.1">
@@ -47,7 +48,35 @@ cp $WORKSPACE/root/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
 cp $WORKSPACE/safepay/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
 cp $WORKSPACE/shipex/target/*.war $WORKSPACE/../../Staging_Area/packed_wars</command>
     </hudson.tasks.Shell>
+    <com.hp.alm.ali.hudson.ac.AliSourceAnalyzer plugin="ali-jenkins-plugin@2.32-495.0">
+      <excludes></excludes>
+      <logLevel>INFO</logLevel>
+      <canFailBuild>true</canFailBuild>
+    </com.hp.alm.ali.hudson.ac.AliSourceAnalyzer>
   </builders>
-  <publishers/>
+  <publishers>
+    <com.hp.alm.ali.hudson.BuildRecorder plugin="ali-jenkins-plugin@2.32-495.0">
+      <testSourceMapping></testSourceMapping>
+      <testSourceDirs>**/src/test/java</testSourceDirs>
+      <almLocation></almLocation>
+      <almDomain></almDomain>
+      <almProject></almProject>
+      <almUsername></almUsername>
+      <almPassword></almPassword>
+      <almBuildServer></almBuildServer>
+      <settings>
+        <entry>
+          <string>ncover_config</string>
+          <string></string>
+        </entry>
+      </settings>
+      <logLevel>INFO</logLevel>
+      <canFailBuild>true</canFailBuild>
+    </com.hp.alm.ali.hudson.BuildRecorder>
+    <com.hp.alm.ali.hudson.DelayedUpstreamPush plugin="ali-jenkins-plugin@2.32-495.0">
+      <logLevel>ALL</logLevel>
+      <canFailBuild>true</canFailBuild>
+    </com.hp.alm.ali.hudson.DelayedUpstreamPush>
+  </publishers>
   <buildWrappers/>
 </project>

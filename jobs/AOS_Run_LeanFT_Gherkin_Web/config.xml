@@ -29,7 +29,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>clean install -P leanft-test</targets>
+      <targets>test -P leanft-test</targets>
       <mavenName>(Default)</mavenName>
       <usePrivateRepository>false</usePrivateRepository>
       <settings class="jenkins.mvn.DefaultSettingsProvider"/>
@@ -46,6 +46,14 @@
       <defaultExcludes>true</defaultExcludes>
       <caseSensitive>true</caseSensitive>
     </hudson.tasks.ArtifactArchiver>
+    <com.hp.application.automation.tools.octane.actions.cucumber.CucumberTestResultsActionPublisher plugin="hp-application-automation-tools-plugin@5.1">
+      <glob></glob>
+    </com.hp.application.automation.tools.octane.actions.cucumber.CucumberTestResultsActionPublisher>
+    <com.hp.application.automation.tools.results.RunResultRecorder plugin="hp-application-automation-tools-plugin@5.1">
+      <__resultsPublisherModel>
+        <archiveTestResultsMode>ALWAYS_ARCHIVE_TEST_REPORT</archiveTestResultsMode>
+      </__resultsPublisherModel>
+    </com.hp.application.automation.tools.results.RunResultRecorder>
   </publishers>
   <buildWrappers/>
 </project>

@@ -44,6 +44,14 @@ cd $WORKSPACE
 
 docker build -t aos_tomcat -f DockerFile-AOS .</command>
     </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>echo &quot;Clean old Docker images&quot;
+if [ &quot;$(docker images --filter &quot;dangling=true&quot; -q --no-trunc)&quot; ]; then
+
+	docker rmi $(docker images --filter &quot;dangling=true&quot; -q --no-trunc) 
+
+fi</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers>
