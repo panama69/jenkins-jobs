@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.hp.application.automation.tools.settings.AlmServerSettingsBuilder_-DescriptorImpl plugin="hp-application-automation-tools-plugin@5.1">
+  <installations>
+    <com.hp.application.automation.tools.model.AlmServerSettingsModel>
+      <__almServerName>ALM.NET</__almServerName>
+      <__almServerUrl>http://DockerServer:8082/qcbin</__almServerUrl>
+    </com.hp.application.automation.tools.model.AlmServerSettingsModel>
+  </installations>
+</com.hp.application.automation.tools.settings.AlmServerSettingsBuilder_-DescriptorImpl>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.hp.application.automation.tools.settings.MCServerSettingsBuilder_-MCDescriptorImpl plugin="hp-application-automation-tools-plugin@5.1">
+  <installations>
+    <com.hp.application.automation.tools.model.MCServerSettingsModel>
+      <__mcServerName>Mobile Center</__mcServerName>
+      <__mcServerUrl>http://DockerServer:8084</__mcServerUrl>
+    </com.hp.application.automation.tools.model.MCServerSettingsModel>
+  </installations>
+</com.hp.application.automation.tools.settings.MCServerSettingsBuilder_-MCDescriptorImpl>

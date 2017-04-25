@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.fodupload.FodUploaderPlugin_-DescriptorImpl plugin="fortify-on-demand-uploader@2.0.9">
+  <clientId></clientId>
+  <clientSecret></clientSecret>
+  <baseUrl>https://hpfod.com</baseUrl>
+  <doPollFortify>false</doPollFortify>
+</org.jenkinsci.plugins.fodupload.FodUploaderPlugin_-DescriptorImpl>

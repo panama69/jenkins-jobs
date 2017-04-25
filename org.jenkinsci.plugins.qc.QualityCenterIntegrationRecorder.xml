@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.qc.QualityCenterIntegrationRecorder_-QualityCenterIntegrationDescriptor plugin="hp-quality-center@1.2">
+  <url></url>
+  <username></username>
+  <password></password>
+</org.jenkinsci.plugins.qc.QualityCenterIntegrationRecorder_-QualityCenterIntegrationDescriptor>

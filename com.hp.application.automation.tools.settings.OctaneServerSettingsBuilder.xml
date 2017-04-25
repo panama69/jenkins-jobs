@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.hp.application.automation.tools.settings.OctaneServerSettingsBuilder_-OctaneDescriptorImpl plugin="hp-application-automation-tools-plugin@5.1">
+  <servers>
+    <com.hp.application.automation.tools.model.OctaneServerSettingsModel>
+      <identity>317b758b-8160-4421-8e2f-026683aca9f6</identity>
+      <identityFrom>1490296234416</identityFrom>
+      <uiLocation>http://dockerserver.aos.com:8085/ui/?p=1001</uiLocation>
+      <username>Jenkins_DevOps_re8n7ydjjemo6bxq1q4v87w01</username>
+      <password>{AQAAABAAAAAgfaRdQy2pjocsyjNkJurl8W3qXZf1u/O7Bh1B6V3euBedCadvnIlocoFWa4WS7jkn}</password>
+      <impersonatedUser></impersonatedUser>
+      <location>http://dockerserver.aos.com:8085</location>
+      <sharedSpace>1001</sharedSpace>
+    </com.hp.application.automation.tools.model.OctaneServerSettingsModel>
+  </servers>
+</com.hp.application.automation.tools.settings.OctaneServerSettingsBuilder_-OctaneDescriptorImpl>

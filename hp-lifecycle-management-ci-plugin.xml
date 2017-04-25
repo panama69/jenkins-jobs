@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.hp.octane.plugins.jenkins.OctanePlugin plugin="hp-lifecycle-management-ci-plugin@12.53.20.10">
+  <identity>51521454-9d80-4aeb-a992-133218b69669</identity>
+  <identityFrom>1484870706496</identityFrom>
+  <uiLocation>http://dockerserver.aos.com:8085/ui/?p=1001</uiLocation>
+  <username>Jenkins_DevOps_re8n7ydjjemo6bxq1q4v87w01</username>
+  <secretPassword>{AQAAABAAAAAgEXwGFGsos2Toits+qzgPjOsuIF4XrqgDBv1ckYo81LZtnFEYktfj6wGWSWniYEmf}</secretPassword>
+  <impersonatedUser></impersonatedUser>
+  <location>http://dockerserver.aos.com:8085</location>
+  <sharedSpace>1001</sharedSpace>
+</com.hp.octane.plugins.jenkins.OctanePlugin>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.hp.alm.ali.hudson.HudsonAliPlugin plugin="ali-jenkins-plugin@2.32-495.0">
+  <exposeCredentials>false</exposeCredentials>
+  <pushEnabled>false</pushEnabled>
+</com.hp.alm.ali.hudson.HudsonAliPlugin>
