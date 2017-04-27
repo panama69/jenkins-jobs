@@ -4,11 +4,11 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.1">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>ssh://devops.aos.com/GitRepo/AOS_Android.git</url>
+        <url>ssh://devops.aos.com/GitRepo/AOS_Android</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -20,8 +20,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>master</assignedNode>
-  <canRoam>false</canRoam>
+  <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
@@ -29,8 +28,10 @@
   <concurrentBuild>false</concurrentBuild>
   <customWorkspace>/Android_Workspace</customWorkspace>
   <builders>
-    <hudson.plugins.gradle.Gradle plugin="gradle@1.25">
-      <description>Build AOS APK file</description>
+    <hudson.tasks.Shell>
+      <command>chmod 744 ${WORKSPACE}/gradlew</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.26">
       <switches></switches>
       <tasks>clean build -x lint</tasks>
       <rootBuildScriptDir></rootBuildScriptDir>
@@ -38,8 +39,8 @@
       <gradleName>(Default)</gradleName>
       <useWrapper>true</useWrapper>
       <makeExecutable>false</makeExecutable>
-      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
       <useWorkspaceAsHome>false</useWorkspaceAsHome>
+      <wrapperLocation></wrapperLocation>
       <passAsProperties>false</passAsProperties>
     </hudson.plugins.gradle.Gradle>
   </builders>

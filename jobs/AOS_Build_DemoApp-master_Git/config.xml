@@ -9,7 +9,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>ssh://devops.aos.com/GitRepo/AOS.git</url>
+        <url>ssh://devops.aos.com/GitRepo/AOS</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
