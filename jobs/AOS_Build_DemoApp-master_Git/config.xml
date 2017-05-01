@@ -75,7 +75,7 @@ cp $WORKSPACE/shipex/target/*.war $WORKSPACE/../../Staging_Area/packed_wars</com
     </com.hp.alm.ali.hudson.BuildRecorder>
     <com.hp.alm.ali.hudson.DelayedUpstreamPush plugin="ali-jenkins-plugin@2.32-495.0">
       <logLevel>ALL</logLevel>
-      <canFailBuild>true</canFailBuild>
+      <canFailBuild>false</canFailBuild>
     </com.hp.alm.ali.hudson.DelayedUpstreamPush>
   </publishers>
   <buildWrappers/>
