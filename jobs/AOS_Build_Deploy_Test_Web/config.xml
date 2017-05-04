@@ -21,7 +21,7 @@
     stage &apos;AOS Build Git Web&apos;
     echo &apos;=== AOS_Build_Git Web ===&apos;
     echo &apos;=== This build reqires the devops, aos_postgres and  aos_tomcat containers ===&apos;
-    build job: &apos;AOS_Build_DemoApp-master_Git&apos;
+    build job: &apos;AOS_Build_Web_Git&apos;
     stage &apos;AOS Deploy Docker Images Web&apos;
     echo &apos;=== AOS_Deploy_Docker_Images_Web ===&apos;
     build job: &apos;AOS_Deploy_Docker_Images_Web&apos;
