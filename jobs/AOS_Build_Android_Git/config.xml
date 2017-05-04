@@ -20,7 +20,8 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <canRoam>true</canRoam>
+  <assignedNode>master</assignedNode>
+  <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
@@ -32,6 +33,7 @@
       <command>chmod 744 ${WORKSPACE}/gradlew</command>
     </hudson.tasks.Shell>
     <hudson.plugins.gradle.Gradle plugin="gradle@1.26">
+      <description>Build AOS APK file</description>
       <switches></switches>
       <tasks>clean build -x lint</tasks>
       <rootBuildScriptDir></rootBuildScriptDir>
@@ -39,8 +41,8 @@
       <gradleName>(Default)</gradleName>
       <useWrapper>true</useWrapper>
       <makeExecutable>false</makeExecutable>
+      <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
       <useWorkspaceAsHome>false</useWorkspaceAsHome>
-      <wrapperLocation></wrapperLocation>
       <passAsProperties>false</passAsProperties>
     </hudson.plugins.gradle.Gradle>
   </builders>
