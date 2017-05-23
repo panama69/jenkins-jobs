@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<project>
+<maven2-moduleset plugin="maven-plugin@2.15.1">
   <actions/>
   <description></description>
-  <displayName>AOS_Build_Web_Git</displayName>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.1">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -21,23 +20,48 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>master</assignedNode>
-  <canRoam>false</canRoam>
+  <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <customWorkspace>/Web_Workspace</customWorkspace>
-  <builders>
-    <hudson.tasks.Maven>
-      <targets>clean install -P development</targets>
-      <mavenName>mvn</mavenName>
-      <usePrivateRepository>false</usePrivateRepository>
-      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
-      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
-      <injectBuildVariables>false</injectBuildVariables>
-    </hudson.tasks.Maven>
+  <rootModule>
+    <groupId>com.advantage.online.store</groupId>
+    <artifactId>main_project</artifactId>
+  </rootModule>
+  <goals>clean install -P development</goals>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+  <archivingDisabled>false</archivingDisabled>
+  <siteArchivingDisabled>false</siteArchivingDisabled>
+  <fingerprintingDisabled>false</fingerprintingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+  <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+  <reporters/>
+  <publishers/>
+  <buildWrappers/>
+  <prebuilders>
+    <org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep plugin="config-file-provider@2.16.0">
+      <managedFiles>
+        <org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+          <fileId>c9d374ee-1f22-464a-9779-04c68c5475a0</fileId>
+          <targetLocation>${WORKSPACE}/catalog/pom.xml</targetLocation>
+          <replaceTokens>false</replaceTokens>
+        </org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+      </managedFiles>
+    </org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep>
+  </prebuilders>
+  <postbuilders>
     <hudson.tasks.Shell>
       <command>[ ! -d &quot;$WORKSPACE/../../Staging_Area/packed_wars&quot; ] &amp;&amp; mkdir -p $WORKSPACE/../../Staging_Area/packed_wars
 cp $WORKSPACE/accountservice/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
@@ -48,7 +72,11 @@ cp $WORKSPACE/root/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
 cp $WORKSPACE/safepay/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
 cp $WORKSPACE/shipex/target/*.war $WORKSPACE/../../Staging_Area/packed_wars</command>
     </hudson.tasks.Shell>
-  </builders>
-  <publishers/>
-  <buildWrappers/>
-</project>
+  </postbuilders>
+  <runPostStepsIfResult>
+    <name>UNSTABLE</name>
+    <ordinal>1</ordinal>
+    <color>YELLOW</color>
+    <completeBuild>true</completeBuild>
+  </runPostStepsIfResult>
+</maven2-moduleset>

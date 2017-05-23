@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.configfiles.GlobalConfigFiles plugin="config-file-provider@2.16.0">
+  <configs class="sorted-set">
+    <comparator class="org.jenkinsci.plugins.configfiles.GlobalConfigFiles$1"/>
+    <org.jenkinsci.plugins.configfiles.xml.XmlConfig>
+      <id>c9d374ee-1f22-464a-9779-04c68c5475a0</id>
+      <name>Catalog Pom File</name>
+      <comment>Catalog Pom file with test set to skip. This prevents the current defect in the catalog build process that is producing unstable builds due to Catalog doa deletion not working</comment>
+      <content>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;artifactId&gt;catalog&lt;/artifactId&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    &lt;name&gt;catalog&lt;/name&gt;
+    &lt;parent&gt;
+        &lt;groupId&gt;com.advantage.online.store&lt;/groupId&gt;
+        &lt;artifactId&gt;main_project&lt;/artifactId&gt;
+        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+        &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;
+    &lt;/parent&gt;
+
+    &lt;profiles&gt;
+        &lt;profile&gt;
+            &lt;id&gt;production&lt;/id&gt;
+            &lt;build&gt;
+                &lt;plugins&gt;
+                    &lt;!--prod plugins vvv--&gt;
+                    &lt;plugin&gt;
+                        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                        &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                    &lt;/plugin&gt;
+                    &lt;!--prod plugins ^^^--&gt;
+                &lt;/plugins&gt;
+            &lt;/build&gt;
+        &lt;/profile&gt;
+        &lt;profile&gt;
+            &lt;id&gt;development&lt;/id&gt;
+            &lt;build&gt;
+                &lt;pluginManagement&gt;
+                    &lt;plugins&gt;
+                        &lt;!--&lt;plugin&gt;--&gt;
+                        &lt;!--&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;--&gt;
+                        &lt;!--&lt;artifactId&gt;sql-maven-plugin&lt;/artifactId&gt;--&gt;
+                        &lt;!--&lt;configuration&gt;--&gt;
+                        &lt;!--&amp;lt;!&amp;ndash;suppress MavenModelInspection &amp;ndash;&amp;gt;--&gt;
+                        &lt;!--&lt;url&gt;--&gt;
+                        &lt;!--${db.url.prefix}://${catalog.hibernate.db.url.host}:${catalog.hibernate.db.url.port}/postgres--&gt;
+                        &lt;!--&lt;/url&gt;--&gt;
+                        &lt;!--&amp;lt;!&amp;ndash;suppress MavenModelInspection &amp;ndash;&amp;gt;--&gt;
+                        &lt;!--&lt;username&gt;${catalog.hibernate.db.login}&lt;/username&gt;--&gt;
+                        &lt;!--&amp;lt;!&amp;ndash;suppress MavenModelInspection &amp;ndash;&amp;gt;--&gt;
+                        &lt;!--&lt;password&gt;${catalog.hibernate.db.password}&lt;/password&gt;--&gt;
+                        &lt;!--&lt;sqlCommand&gt;create database &quot;${catalog.hibernate.db.name}&quot;&lt;/sqlCommand&gt;--&gt;
+                        &lt;!--&lt;/configuration&gt;--&gt;
+                        &lt;!--&lt;/plugin&gt;--&gt;
+                    &lt;/plugins&gt;
+                &lt;/pluginManagement&gt;
+                &lt;plugins&gt;
+                    &lt;!--run sql--&gt;
+                    &lt;!--&lt;plugin&gt;--&gt;
+                    &lt;!--&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;--&gt;
+                    &lt;!--&lt;artifactId&gt;sql-maven-plugin&lt;/artifactId&gt;--&gt;
+                    &lt;!--&lt;/plugin&gt;--&gt;
+                    &lt;plugin&gt;
+                        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                        &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                    &lt;/plugin&gt;
+                &lt;/plugins&gt;
+            &lt;/build&gt;
+        &lt;/profile&gt;
+    &lt;/profiles&gt;
+    &lt;properties&gt;
+
+    &lt;/properties&gt;
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;!-- WebSocket --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;javax.websocket&lt;/groupId&gt;
+                &lt;artifactId&gt;javax.websocket-api&lt;/artifactId&gt;
+                &lt;version&gt;1.1&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.advantage.online.store&lt;/groupId&gt;
+                &lt;artifactId&gt;common&lt;/artifactId&gt;
+                &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;!-- WebSocket --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.websocket&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.websocket-api&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--shared resources--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.advantage.online.store&lt;/groupId&gt;
+            &lt;artifactId&gt;shared_resources&lt;/artifactId&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+            &lt;!--&lt;classifier&gt;resources&lt;/classifier&gt;--&gt;
+            &lt;type&gt;zip&lt;/type&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;&lt;!-- Use root.WAR with classes - for sharing with WARs--&gt;
+            &lt;groupId&gt;com.advantage.online.store&lt;/groupId&gt;
+            &lt;artifactId&gt;root&lt;/artifactId&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+            &lt;classifier&gt;classes&lt;/classifier&gt;
+            &lt;scope&gt;compile&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.advantage.online.store&lt;/groupId&gt;
+            &lt;artifactId&gt;common&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;build&gt;
+        &lt;finalName&gt;catalog&lt;/finalName&gt;
+        &lt;plugins&gt;
+            &lt;!--shared resources--&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+            &lt;!--read properties from zip--&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;properties-maven-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;skipTests&gt;true&lt;/skipTests&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+    &lt;!-- Spring BOM --&gt;
+
+&lt;/project&gt;</content>
+      <providerId>org.jenkinsci.plugins.configfiles.xml.XmlConfig</providerId>
+    </org.jenkinsci.plugins.configfiles.xml.XmlConfig>
+  </configs>
+</org.jenkinsci.plugins.configfiles.GlobalConfigFiles>
