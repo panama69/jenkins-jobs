@@ -1,1 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
+jobs/**/builds
+jobs/**/lastStable
+jobs/**/lastSuccessful
+jobs/**/modules
+jobs/**/nextBuildNumber
+.idea/

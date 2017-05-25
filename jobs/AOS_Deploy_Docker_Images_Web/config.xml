@@ -12,45 +12,66 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>/var/jenkins/AOS</customWorkspace>
   <builders>
-    <hudson.tasks.Shell>
-      <command>#echo &quot;Get new war files&quot;
-
-HOSTNAME=$(/bin/hostname)
-
-scp -P 9022 root@$HOSTNAME:/Staging_Area/packed_wars/DockerFile-AOS $WORKSPACE
-scp -P 9022 root@$HOSTNAME:/Staging_Area/packed_wars/*.war $WORKSPACE</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command># Check if AOS on Tomcat is running
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38.1">
+      <project>AOS_Build_Web_Git</project>
+      <filter>**/pack_wars*.zip</filter>
+      <target>.</target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <flatten>true</flatten>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep plugin="config-file-provider@2.16.0">
+      <managedFiles>
+        <org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+          <fileId>d341af78-1a3c-4927-89c7-3b860ec2d9ee</fileId>
+          <targetLocation>.\Dockerfile</targetLocation>
+          <replaceTokens>false</replaceTokens>
+        </org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+      </managedFiles>
+    </org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.5">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>${platform}</arg1>
+        <arg2>windows</arg2>
+        <ignoreCase>false</ignoreCase>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.BatchFile>
+          <command>ren &quot;pack_wars*.zip&quot; &quot;wars.zip&quot;&#xd;
+docker build -t aos_tomcat .</command>
+        </hudson.tasks.BatchFile>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.5">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>${platform}</arg1>
+        <arg2>linux</arg2>
+        <ignoreCase>false</ignoreCase>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.Shell>
+          <command># Check if AOS on Tomcat is running
 # Tear it down if necessary
 
-if [ ! &quot;$(docker ps -a -q -f name=aos_tomcat)&quot; ]; then
+if [ &quot;$(docker ps -a -q -f name=aos_tomcat)&quot; ]; then
 
-	echo &quot;Starting aos_tomcat container&quot;
-
-else
-	echo &quot;AOS is up&quot;
-    echo &quot;Removing Container&quot;
+	echo &quot;AOS is up - Removing Container&quot;
     
     docker rm -f aos_tomcat
 
 fi
 
 echo &quot;Build docker image AOS on Tomcat&quot;
-
-cd $WORKSPACE
-
-docker build -t aos_tomcat -f DockerFile-AOS .</command>
-    </hudson.tasks.Shell>
+mv &quot;pack_wars*.zip&quot; &quot;wars.zip&quot;
+docker build -t aos_tomcat .</command>
+        </hudson.tasks.Shell>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
   </builders>
   <publishers/>
-  <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
-      <deleteDirs>false</deleteDirs>
-      <cleanupParameter></cleanupParameter>
-      <externalDelete></externalDelete>
-    </hudson.plugins.ws__cleanup.PreBuildCleanup>
-  </buildWrappers>
+  <buildWrappers/>
 </project>

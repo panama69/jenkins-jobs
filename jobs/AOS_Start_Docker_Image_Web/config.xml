@@ -22,8 +22,33 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command>#!/bin/bash
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.5">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>${platform}</arg1>
+        <arg2>windows</arg2>
+        <ignoreCase>false</ignoreCase>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.plugins.powershell.PowerShell plugin="powershell@1.3">
+          <command>do {
+  Write-Host &quot;waiting...&quot;
+  sleep 3      
+} until(Test-NetConnection localhost -Port 8090 | ? { $_.TcpTestSucceeded } )
+</command>
+        </hudson.plugins.powershell.PowerShell>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.5">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.StringsMatchCondition" plugin="run-condition@1.0">
+        <arg1>${platform}</arg1>
+        <arg2>linux</arg2>
+        <ignoreCase>false</ignoreCase>
+      </runCondition>
+      <conditionalbuilders>
+        <hudson.tasks.Shell>
+          <command>#!/bin/bash
 echo &quot;Wait for Tomcat to load WARs...&quot;
 sleep 60
 dockerCmd=&quot;docker logs --tail 10 aos_tomcat 2&gt;&amp;1&quot;
@@ -52,7 +77,9 @@ then
    exit -1
 fi
 </command>
-    </hudson.tasks.Shell>
+        </hudson.tasks.Shell>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
   </builders>
   <publishers/>
   <buildWrappers/>

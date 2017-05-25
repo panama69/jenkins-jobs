@@ -146,5 +146,15 @@
 &lt;/project&gt;</content>
       <providerId>org.jenkinsci.plugins.configfiles.xml.XmlConfig</providerId>
     </org.jenkinsci.plugins.configfiles.xml.XmlConfig>
+    <org.jenkinsci.plugins.configfiles.custom.CustomConfig>
+      <id>d341af78-1a3c-4927-89c7-3b860ec2d9ee</id>
+      <name>Dockerfile-AOS</name>
+      <comment>Dockerfile for AOS Rebuild</comment>
+      <content>FROM performancetesting/aos-main-app:latest
+LABEL authors=&quot;Jason Hrabi&quot;
+
+COPY wars.zip webapps</content>
+      <providerId>org.jenkinsci.plugins.configfiles.custom.CustomConfig</providerId>
+    </org.jenkinsci.plugins.configfiles.custom.CustomConfig>
   </configs>
 </org.jenkinsci.plugins.configfiles.GlobalConfigFiles>

@@ -3,7 +3,16 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>-1</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+  </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
@@ -31,12 +40,12 @@
     <groupId>com.advantage.online.store</groupId>
     <artifactId>main_project</artifactId>
   </rootModule>
-  <goals>clean install -P development</goals>
+  <goals>clean install -P production,pack_wars_without_accountservices</goals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <ignoreUpstremChanges>true</ignoreUpstremChanges>
   <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
-  <archivingDisabled>false</archivingDisabled>
+  <archivingDisabled>true</archivingDisabled>
   <siteArchivingDisabled>false</siteArchivingDisabled>
   <fingerprintingDisabled>false</fingerprintingDisabled>
   <resolveDependencies>false</resolveDependencies>
@@ -48,7 +57,16 @@
   <settings class="jenkins.mvn.DefaultSettingsProvider"/>
   <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
   <reporters/>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>root/target/wars.zip</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
   <buildWrappers/>
   <prebuilders>
     <org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep plugin="config-file-provider@2.16.0">
@@ -61,18 +79,7 @@
       </managedFiles>
     </org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep>
   </prebuilders>
-  <postbuilders>
-    <hudson.tasks.Shell>
-      <command>[ ! -d &quot;$WORKSPACE/../../Staging_Area/packed_wars&quot; ] &amp;&amp; mkdir -p $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/accountservice/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/catalog/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/mastercredit/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/order/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/root/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/safepay/target/*.war $WORKSPACE/../../Staging_Area/packed_wars
-cp $WORKSPACE/shipex/target/*.war $WORKSPACE/../../Staging_Area/packed_wars</command>
-    </hudson.tasks.Shell>
-  </postbuilders>
+  <postbuilders/>
   <runPostStepsIfResult>
     <name>UNSTABLE</name>
     <ordinal>1</ordinal>

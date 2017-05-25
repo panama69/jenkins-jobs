@@ -2,6 +2,7 @@
 <hudson>
   <disabledAdministrativeMonitors>
     <string>jenkins.diagnostics.SecurityIsOffMonitor</string>
+    <string>hudsonHomeIsFull</string>
   </disabledAdministrativeMonitors>
   <version>2.46</version>
   <numExecutors>2</numExecutors>
