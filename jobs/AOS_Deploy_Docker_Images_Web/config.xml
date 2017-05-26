@@ -14,8 +14,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38.1">
-      <project>AOS_Build_Web_Git</project>
-      <filter>**/pack_wars*.zip</filter>
+      <project>AOS_Build_Web_Git/com.advantage.online.store$pack_wars</project>
+      <filter>**/*.zip</filter>
       <target>.</target>
       <excludes></excludes>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
@@ -41,6 +41,7 @@
       <conditionalbuilders>
         <hudson.tasks.BatchFile>
           <command>ren &quot;pack_wars*.zip&quot; &quot;wars.zip&quot;&#xd;
+docker rmi aos_tomcat&#xd;
 docker build -t aos_tomcat .</command>
         </hudson.tasks.BatchFile>
       </conditionalbuilders>
@@ -73,5 +74,11 @@ docker build -t aos_tomcat .</command>
     </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.33">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
 </project>

@@ -16,7 +16,7 @@
       <triggers/>
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.31">
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.32">
     <script>node (&apos;master&apos;) { 
     stage &apos;AOS Build Git Web&apos;
     echo &apos;=== AOS_Build_Git Web ===&apos;
@@ -31,7 +31,9 @@
     stage &apos;AOS Start Docker Image Web&apos;
     echo &apos;=== AOS_Start_Docker_Image_Web ===&apos;
     build job: &apos;AOS_Start_Docker_Image_Web&apos;
-
+    stage &apos;AOS Run Regressions Test Web&apos;
+    echo &apos;=== AOS Run Regressions Test Web ===&apos;
+    build &apos;AOS_Run_Regression_Test_Web&apos;
     echo &apos;=== Build Completed ===&apos;
 }</script>
     <sandbox>true</sandbox>
