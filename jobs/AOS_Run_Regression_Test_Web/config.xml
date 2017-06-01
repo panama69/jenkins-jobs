@@ -49,7 +49,6 @@
         <hudson.tasks.Maven>
           <targets>test -P leanft-test</targets>
           <mavenName>(Default)</mavenName>
-          <pom>/home/hpe/workspace/AOS_Run_Regression_Test_Web/pom.xml</pom>
           <usePrivateRepository>false</usePrivateRepository>
           <settings class="jenkins.mvn.DefaultSettingsProvider"/>
           <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>

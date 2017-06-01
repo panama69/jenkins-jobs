@@ -55,21 +55,43 @@ docker run -d -p 8000:8080 -p 8009:8009 --name aos_tomcat --hostname aosweb.aos.
       </runCondition>
       <conditionalbuilders>
         <hudson.tasks.Shell>
-          <command>if [ ! &quot;$(docker ps -q -f name=aos_postgres)&quot; ]; then
+          <command>FOUND=`grep &quot;ens34:\|wlan0&quot; /proc/net/dev | cat` 
+if  [ -n &quot;$FOUND&quot; ] ; then
+     IP=$(/sbin/ifconfig ens34 | grep &apos;inet addr&apos; | awk {&apos;print $2&apos;} | cut -d&quot;:&quot; -f2)
+else 
+    IP=$(/sbin/ifconfig eth0 | grep &apos;inet addr&apos; | awk {&apos;print $2&apos;} | cut -d&quot;:&quot; -f2)
+    
+fi
+echo IP: $IP
 
-	echo &quot;Starting database&quot;
-	docker run -d -p 5432:5432 --name aos_postgres --hostname aosdb.aos.com --net demo-net performancetesting/aos-postgres
+if [ &quot;$(docker ps -q -f &quot;status=exited&quot; -f name=aos_postgres)&quot; ]; then
+	echo &quot;Removing stopped docker container rm aos_postgres&quot;
+    docker rm aos_postgres
+    
+fi
 
+if [ ! &quot;$(docker ps -q -f name=aos_postgres)&quot; ]; then
+
+	echo &quot;Starting database container aos_postgres&quot;
+	docker run -d -p 5432:5432 --name aos_postgres --hostname aosdb.aos.com performancetesting/aos-postgres
+	if [ &quot;$(docker ps -q -f &quot;status=exited&quot; -f name=aos_accountservice)&quot; ]; then
+    	docker rm -f aos_accountservice
+        docker run -d -p 8001:8080--name aos_tomcat --hostname aosweb.aos.com --add-host DockerServer:$IP -e &quot;POSTGRES_PORT=5432&quot; -e &quot;POSTGRES_IP=DockerServer&quot; -e &quot;MAIN_PORT=8000&quot; -e &quot;ACCOUNT_PORT=8001&quot; -e &apos;MAIN_IP=DockerServer&apos; -e &quot;ACCOUNT_IP=DockerServer&quot; aos_accountservice
+	fi  
 else
-
-	echo &quot;Database is up&quot;
+	echo &quot;Database container aos_postgres is running&quot;
         
 fi
 
-IP=$(/sbin/ifconfig ens34 | grep &apos;inet addr&apos; | awk {&apos;print $2&apos;} | cut -d&quot;:&quot; -f2)
 
 # Start aos container
-docker run -d -p 8000:8000 -p 8009:8009 --net demo-net --name aos_tomcat --hostname aosweb.aos.com --add-host DockerServer:$IP aos_tomcat</command>
+if [ &quot;$(docker ps -a -q -f name=aos_tomcat)&quot; ]; then
+    echo &quot;Docker container aos_tomcat already exists: Removing container&quot;
+     docker rm -f aos_tomcat
+fi
+
+docker run -d -p 8000:8080 -p 8009:8009 --name aos_tomcat --hostname aosweb.aos.com --add-host DockerServer:$IP -e &quot;POSTGRES_PORT=5432&quot; -e &quot;POSTGRES_IP=DockerServer&quot; -e &quot;MAIN_PORT=8000&quot; -e &quot;ACCOUNT_PORT=8001&quot; -e &apos;MAIN_IP=DockerServer&apos; -e &quot;ACCOUNT_IP=DockerServer&quot; aos_tomcat
+</command>
         </hudson.tasks.Shell>
       </conditionalbuilders>
     </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>

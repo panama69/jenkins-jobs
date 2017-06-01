@@ -67,7 +67,10 @@ if [ &quot;$(docker ps -a -q -f name=aos_tomcat)&quot; ]; then
 fi
 
 echo &quot;Build docker image AOS on Tomcat&quot;
-mv &quot;pack_wars*.zip&quot; &quot;wars.zip&quot;
+for file in *.zip; do
+  mv $file wars.zip
+done
+
 docker build -t aos_tomcat .</command>
         </hudson.tasks.Shell>
       </conditionalbuilders>
