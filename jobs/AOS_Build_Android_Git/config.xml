@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.0">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -32,7 +32,7 @@
     <hudson.tasks.Shell>
       <command>chmod 744 ${WORKSPACE}/gradlew</command>
     </hudson.tasks.Shell>
-    <hudson.plugins.gradle.Gradle plugin="gradle@1.26">
+    <hudson.plugins.gradle.Gradle plugin="gradle@1.27.1">
       <switches></switches>
       <tasks>clean build -x lint</tasks>
       <rootBuildScriptDir></rootBuildScriptDir>
@@ -42,7 +42,11 @@
       <makeExecutable>false</makeExecutable>
       <useWorkspaceAsHome>false</useWorkspaceAsHome>
       <wrapperLocation></wrapperLocation>
-      <passAsProperties>false</passAsProperties>
+      <systemProperties>http.proxyHost=${http_proxy}
+        https.proxyHost=${https_proxy}</systemProperties>
+      <passAllAsSystemProperties>true</passAllAsSystemProperties>
+      <projectProperties></projectProperties>
+      <passAllAsProjectProperties>false</passAllAsProjectProperties>
     </hudson.plugins.gradle.Gradle>
   </builders>
   <publishers/>
