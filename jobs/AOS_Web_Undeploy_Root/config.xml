@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+    <actions/>
+    <description></description>
+    <displayName>AOS Web Undeploy Root</displayName>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <scm class="hudson.scm.NullSCM"/>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <jenkins.plugins.http__request.HttpRequest plugin="http_request@1.8.20">
+            <url>http://aos_tomcat:8080/manager/text/undeploy?path=/</url>
+            <ignoreSslErrors>false</ignoreSslErrors>
+            <httpMode>GET</httpMode>
+            <passBuildParameters>false</passBuildParameters>
+            <validResponseCodes>100:399</validResponseCodes>
+            <validResponseContent></validResponseContent>
+            <acceptType>NOT_SET</acceptType>
+            <contentType>NOT_SET</contentType>
+            <outputFile></outputFile>
+            <timeout>0</timeout>
+            <consoleLogResponseBody>false</consoleLogResponseBody>
+            <authentication>94c1b1e6-5013-4d2d-a78a-a9b2b8adc9e5</authentication>
+            <requestBody></requestBody>
+            <customHeaders class="empty-list"/>
+        </jenkins.plugins.http__request.HttpRequest>
+    </builders>
+    <publishers/>
+    <buildWrappers/>
+</project>

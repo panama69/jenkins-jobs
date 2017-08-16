@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset plugin="maven-plugin@2.17">
+    <actions/>
+    <description></description>
+    <displayName>AOS Web Build Root</displayName>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <jenkins.model.BuildDiscarderProperty>
+            <strategy class="hudson.tasks.LogRotator">
+                <daysToKeep>-1</daysToKeep>
+                <numToKeep>-1</numToKeep>
+                <artifactDaysToKeep>-1</artifactDaysToKeep>
+                <artifactNumToKeep>1</artifactNumToKeep>
+            </strategy>
+        </jenkins.model.BuildDiscarderProperty>
+    </properties>
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>/GitRepo/AOS</url>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/master</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+    </scm>
+    <assignedNode>master</assignedNode>
+    <canRoam>false</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <rootModule>
+        <groupId>com.advantage.online.store</groupId>
+        <artifactId>main_project</artifactId>
+    </rootModule>
+    <goals>clean install -P production,pack_wars_without_accountservices -pl root -am</goals>
+    <aggregatorStyleBuild>true</aggregatorStyleBuild>
+    <incrementalBuild>false</incrementalBuild>
+    <ignoreUpstremChanges>true</ignoreUpstremChanges>
+    <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+    <archivingDisabled>false</archivingDisabled>
+    <siteArchivingDisabled>false</siteArchivingDisabled>
+    <fingerprintingDisabled>false</fingerprintingDisabled>
+    <resolveDependencies>false</resolveDependencies>
+    <processPlugins>false</processPlugins>
+    <mavenValidationLevel>-1</mavenValidationLevel>
+    <runHeadless>false</runHeadless>
+    <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+    <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+    <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+    <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    <reporters/>
+    <publishers/>
+    <buildWrappers/>
+    <prebuilders>
+        <org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep plugin="config-file-provider@2.16.3">
+            <managedFiles>
+                <org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+                    <fileId>c9d374ee-1f22-464a-9779-04c68c5475a0</fileId>
+                    <targetLocation>${WORKSPACE}/catalog/pom.xml</targetLocation>
+                    <replaceTokens>false</replaceTokens>
+                </org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
+            </managedFiles>
+        </org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep>
+    </prebuilders>
+    <postbuilders/>
+    <runPostStepsIfResult>
+        <name>UNSTABLE</name>
+        <ordinal>1</ordinal>
+        <color>YELLOW</color>
+        <completeBuild>true</completeBuild>
+    </runPostStepsIfResult>
+</maven2-moduleset>

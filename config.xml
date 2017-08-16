@@ -119,7 +119,7 @@
       <recurse>false</recurse>
     </listView>
   </views>
-  <primaryView>all</primaryView>
+  <primaryView>Pipelines</primaryView>
   <slaveAgentPort>50000</slaveAgentPort>
   <label></label>
   <nodeProperties/>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+    <actions/>
+    <description></description>
+    <displayName>AOS Web Deploy Root</displayName>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <scm class="hudson.scm.NullSCM"/>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38.1">
+            <project>AOS_Build_Web_Git/com.advantage.online.store:root</project>
+            <filter></filter>
+            <target></target>
+            <excludes></excludes>
+            <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
+                <stable>true</stable>
+            </selector>
+            <flatten>true</flatten>
+            <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+        </hudson.plugins.copyartifact.CopyArtifact>
+        <hudson.tasks.Shell>
+            <command>#!/bin/bash
+                ACCOUNT_IP=DockerServer
+                ACCOUNT_PORT=8001
+                MAIN_IP=DockerServer
+                MAIN_PORT=8000
+                POSTGRES_PORT=5432
+                POSTGRES_IP=DockerServer
+
+                mkdir &quot;tmp&quot;
+                cp *.war ./tmp/ROOT.war
+                cd &quot;./tmp&quot;
+                mkdir &quot;Temp&quot;
+                x=`find . -iname &quot;*.war&quot; | cut -d/ -f2`
+                for i in $x
+                do
+                chmod 777 $i
+                ls -l
+                echo &quot;for ------&gt; $i&quot;
+                mv $i &quot;./Temp&quot;
+                cd &quot;./Temp&quot;
+                jar -xf $i
+                path_to_services=&quot;./WEB-INF/classes/properties/services.properties&quot;
+                if [ &quot;$i&quot; == &quot;ROOT.war&quot; ];then
+                path_to_services=&quot;./services.properties&quot;
+                fi
+                sed -i &apos;s/\.\./\/opt/g&apos; &quot;./WEB-INF/classes/log4j.properties&quot;
+                command1=&quot;sed -i &apos;s/account\.soapservice\.url\.host=localhost/account\.soapservice\.url\.host=${ACCOUNT_IP}/g&apos; ${path_to_services}&quot;
+                command2=&quot;sed -i &apos;s/=localhost/=${MAIN_IP}/g&apos; ${path_to_services}&quot;
+                command3=&quot;sed -i &apos;s/account\.soapservice\.url\.port=8080/account\.soapservice\.url\.port=${ACCOUNT_PORT}/g&apos; ${path_to_services}&quot;
+                command4=&quot;sed -i &apos;s/=8080/=${MAIN_PORT}/g&apos; ${path_to_services}&quot;
+                sed -i &apos;s/single\.machine\.deployment=true/single\.machine\.deployment=false/g&apos; &quot;${path_to_services}&quot;
+                eval $command1
+                eval $command2
+                eval $command3
+                eval $command4
+                if [[ &quot;$i&quot; == &quot;order.war&quot; || &quot;$i&quot; == &quot;catalog.war&quot; ]];then
+                #sed -i &apos;s/=validate/=create/g&apos; &quot;./WEB-INF/classes/properties/internal_config_for_env.properties&quot;
+                command5=&quot;sed -i &apos;s/=localhost/=${POSTGRES_IP}/g&apos; ./WEB-INF/classes/properties/internal_config_for_env.properties&quot;
+                command6=&quot;sed -i &apos;s/=5432/=${POSTGRES_PORT}/g&apos; ./WEB-INF/classes/properties/internal_config_for_env.properties&quot;
+                eval $command5
+                eval $command6
+                fi
+                rm -rf $i
+                jar -cvf $i *
+                mv $i ../
+                rm -rf *
+                cd ../
+                done
+
+                rm -rf &quot;Temp/&quot;
+                mv * ../
+                cd ../
+                rm -rf ${WORKSPACE}/tmp</command>
+        </hudson.tasks.Shell>
+    </builders>
+    <publishers>
+        <hudson.plugins.deploy.DeployPublisher plugin="deploy@1.13">
+            <adapters>
+                <hudson.plugins.deploy.tomcat.Tomcat8xAdapter>
+                    <credentialsId>94c1b1e6-5013-4d2d-a78a-a9b2b8adc9e5</credentialsId>
+                    <url>http://aos_tomcat:8080</url>
+                </hudson.plugins.deploy.tomcat.Tomcat8xAdapter>
+            </adapters>
+            <contextPath>/ROOT</contextPath>
+            <war>ROOT.war</war>
+            <onFailure>false</onFailure>
+        </hudson.plugins.deploy.DeployPublisher>
+    </publishers>
+    <buildWrappers/>
+</project>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.14.1">
+    <actions/>
+    <description>Advantage_Online_Shopping_Backend</description>
+    <displayName>AOS Web Root Module Pipeline</displayName>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <jenkins.model.BuildDiscarderProperty>
+            <strategy class="hudson.tasks.LogRotator">
+                <daysToKeep>-1</daysToKeep>
+                <numToKeep>8</numToKeep>
+                <artifactDaysToKeep>-1</artifactDaysToKeep>
+                <artifactNumToKeep>-1</artifactNumToKeep>
+            </strategy>
+        </jenkins.model.BuildDiscarderProperty>
+        <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+            <triggers/>
+        </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+    </properties>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.39">
+        <script>node (&apos;master&apos;) {
+            stage &apos;AOS Web Build Root Module&apos;
+            echo &apos;=== AOS Web Build Root Module ===&apos;
+            echo &apos;=== This build reqires the devops and aos_tomcat containers ===&apos;
+            build job: &apos;AOS_Web_Build_Root&apos;
+            stage &apos;AOS Web Undeploy Root&apos;
+            echo &apos;=== AOS Web UnDeploy Root ===&apos;
+            build job: &apos;AOS_Web_Undeploy_Root&apos;
+            stage &apos;AOS Web Deploy Root&apos;
+            echo &apos;=== AOS Web Deploy Root ===&apos;
+            build job: &apos;AOS_Web_Deploy_Root&apos;
+            echo &apos;=== Build Completed ===&apos;
+            }</script>
+        <sandbox>true</sandbox>
+    </definition>
+    <triggers/>
+    <disabled>false</disabled>
+</flow-definition>
