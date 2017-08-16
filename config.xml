@@ -83,6 +83,7 @@
         <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
         <string>AOS_Build_Deploy_Test_Android</string>
         <string>AOS_Build_Deploy_Test_Web</string>
+        <string>AOS_Web_Root_Module_Pipeline</string>
       </jobNames>
       <jobFilters/>
       <columns>
