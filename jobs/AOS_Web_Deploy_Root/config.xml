@@ -14,7 +14,7 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.38.1">
-            <project>AOS_Build_Web_Git/com.advantage.online.store:root</project>
+            <project>AOS_Web_Build_Root/com.advantage.online.store:root</project>
             <filter></filter>
             <target></target>
             <excludes></excludes>
@@ -93,5 +93,11 @@
             <onFailure>false</onFailure>
         </hudson.plugins.deploy.DeployPublisher>
     </publishers>
-    <buildWrappers/>
+    <buildWrappers>
+        <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+            <deleteDirs>false</deleteDirs>
+            <cleanupParameter></cleanupParameter>
+            <externalDelete></externalDelete>
+        </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    </buildWrappers>
 </project>
