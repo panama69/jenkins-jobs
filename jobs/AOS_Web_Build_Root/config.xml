@@ -64,8 +64,8 @@
         <org.jenkinsci.plugins.configfiles.builder.ConfigFileBuildStep plugin="config-file-provider@2.16.3">
             <managedFiles>
                 <org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
-                    <fileId>c9d374ee-1f22-464a-9779-04c68c5475a0</fileId>
-                    <targetLocation>${WORKSPACE}/catalog/pom.xml</targetLocation>
+                    <fileId>90a6aab8-9361-4dd8-8dbf-c3ee6a406bb6</fileId>
+                    <targetLocation>${WORKSPACE}/root/src/main/webapp/META-INF/context.xml</targetLocation>
                     <replaceTokens>false</replaceTokens>
                 </org.jenkinsci.plugins.configfiles.buildwrapper.ManagedFile>
             </managedFiles>

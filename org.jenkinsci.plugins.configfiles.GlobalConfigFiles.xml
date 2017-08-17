@@ -2,7 +2,15 @@
 <org.jenkinsci.plugins.configfiles.GlobalConfigFiles plugin="config-file-provider@2.16.0">
   <configs class="sorted-set">
     <comparator class="org.jenkinsci.plugins.configfiles.GlobalConfigFiles$1"/>
-    <org.jenkinsci.plugins.configfiles.xml.XmlConfig>
+      <org.jenkinsci.plugins.configfiles.xml.XmlConfig>
+          <id>90a6aab8-9361-4dd8-8dbf-c3ee6a406bb6</id>
+          <name>RootContext</name>
+          <comment>Root Context file needed until corrected by R&amp;D</comment>
+          <content>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+              &lt;Context antiJARLocking=&quot;true&quot; path=&quot;/ROOT&quot;/&gt;</content>
+          <providerId>org.jenkinsci.plugins.configfiles.xml.XmlConfig</providerId>
+      </org.jenkinsci.plugins.configfiles.xml.XmlConfig>
+      <org.jenkinsci.plugins.configfiles.xml.XmlConfig>
       <id>c9d374ee-1f22-464a-9779-04c68c5475a0</id>
       <name>Catalog Pom File</name>
       <comment>Catalog Pom file with test set to skip. This prevents the current defect in the catalog build process that is producing unstable builds due to Catalog doa deletion not working</comment>
