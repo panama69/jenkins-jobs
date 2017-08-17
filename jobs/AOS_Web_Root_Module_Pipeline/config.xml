@@ -19,16 +19,28 @@
     </properties>
     <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.39">
         <script>node (&apos;master&apos;) {
-            stage &apos;AOS Web Build Root Module&apos;
+            stage(&apos;AOS Web Build Root Module&apos;)
+            {
             echo &apos;=== AOS Web Build Root Module ===&apos;
             echo &apos;=== This build reqires the devops and aos_tomcat containers ===&apos;
             build job: &apos;AOS_Web_Build_Root&apos;
-            stage &apos;AOS Web Undeploy Root&apos;
+            }
+            stage(&apos;AOS Web Undeploy Root&apos;)
+            {
             echo &apos;=== AOS Web UnDeploy Root ===&apos;
             build job: &apos;AOS_Web_Undeploy_Root&apos;
-            stage &apos;AOS Web Deploy Root&apos;
+            }
+            stage(&apos;AOS Web Deploy Root&apos;)
+            {
             echo &apos;=== AOS Web Deploy Root ===&apos;
             build job: &apos;AOS_Web_Deploy_Root&apos;
+
+            }
+            stage(&apos;AOS Web Run Regression Test&apos;)
+            {
+            echo &apos;=== AOS Run Regressions Test Web ===&apos;
+            build &apos;AOS_Run_Regression_Test_Web&apos;
+            }
             echo &apos;=== Build Completed ===&apos;
             }</script>
         <sandbox>true</sandbox>
