@@ -5,6 +5,10 @@
 # #####################
 #    jq - json query utility to parse Json.  Installation can be found on
 #         stedolan.github.io/jq/download
+#    On RedHat/CentOS use the following commands
+#      yum install epel-release -y
+#      yum install jq -y
+#      jq --version
 # #####################
 # Resource references
 # #####################
