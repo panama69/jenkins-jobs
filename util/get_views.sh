@@ -24,6 +24,9 @@ then
    echo "The program 'jq' is currently not installed. "
    echo "You can install it by typing:"
    echo "   sudo apt install jq"
+   echo "or on centos"
+   echo "   yum install epel-release -y"
+   echo "   yum install jq -y"
    exit -1
 else
    echo "Using jq version: $res"
